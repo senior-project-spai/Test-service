@@ -25,7 +25,7 @@ jobs:
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/s3-bucket'
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/s3-endpoint'
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/s3-key'
-          'wait --for=condition=Ready dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --timeout=120s'
+          'wait --for=condition=available dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --timeout=120s'
           'expose svc/${{secrets.OPENSHIFT_APPLICATION_NAME}} -n ${{secrets.OPENSHIFT_PROJECT}}'
           continue-on-error: true
     - name: Trigger Build
