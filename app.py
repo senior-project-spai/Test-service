@@ -21,7 +21,6 @@ logger.setLevel(logging.INFO)
 KAFKA_HOST = os.environ['KAFKA_HOST']
 KAFKA_PORT = os.environ['KAFKA_PORT']
 KAFKA_TOPIC_FACE_IMAGE = os.environ['KAFKA_TOPIC_FACE_IMAGE_INPUT']
-# KAFKA_TOPIC_TEST_RESULT = os.environ['KAFKA_TOPIC_TEST_RESULT']
 KAFKA_TOPIC_TEST_RESULT = 'face-result-test'
 
 # display environment variable
