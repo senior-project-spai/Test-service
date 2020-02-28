@@ -35,4 +35,21 @@ jobs:
         parameters: '{"username": "${{ secrets.OPENSHIFT_USERNAME }}", "password": "${{ secrets.OPENSHIFT_PASSWORD }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
           'start-build ${{secrets.OPENSHIFT_APPLICATION_NAME}} -n ${{secrets.OPENSHIFT_PROJECT}} --wait'
-          
+    - name: Add Kafka topic
+      uses: redhat-developer/openshift-actions@v1.1
+      with:
+        version: '3.11.36'
+        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
+        parameters: '{"username": "${{ secrets.OPENSHIFT_USERNAME }}", "password": "${{ secrets.OPENSHIFT_PASSWORD }}", "acceptUntrustedCerts": "true"}'
+        cmd: |          
+          'project ${{secrets.OPENSHIFT_PROJECT}}'
+          'run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-topics.sh --create --bootstrap-server my-cluster-kafka-bootstrap.spai.svc:9092 --replication-factor 1 --partitions 1 --topic face-result-test'
+    - name: Change partition count of Kafka topic
+      uses: redhat-developer/openshift-actions@v1.1
+      with:
+        version: '3.11.36'
+        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
+        parameters: '{"username": "${{ secrets.OPENSHIFT_USERNAME }}", "password": "${{ secrets.OPENSHIFT_PASSWORD }}", "acceptUntrustedCerts": "true"}'
+        cmd: |          
+          'project ${{secrets.OPENSHIFT_PROJECT}}'
+          'run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-topics.sh --bootstrap-server my-cluster-kafka-bootstrap.spai.svc:9092 --alter --partitions 15 --topic face-result-test'
