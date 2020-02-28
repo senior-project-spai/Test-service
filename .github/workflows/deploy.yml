@@ -26,7 +26,7 @@ jobs:
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/s3-endpoint'
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/s3-key'
           'wait --for=condition=available dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --timeout=120s'
-          continue-on-error: true
+      continue-on-error: true
     - name: Trigger Build
       uses: redhat-developer/openshift-actions@v1.1
       with:
