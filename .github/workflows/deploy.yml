@@ -18,6 +18,8 @@ jobs:
           'project ${{secrets.OPENSHIFT_PROJECT}}'
           'new-app https://github.com/${{github.REPOSITORY}} --name ${{secrets.OPENSHIFT_APPLICATION_NAME}} -n ${{secrets.OPENSHIFT_PROJECT}}'
           'expose svc/${{secrets.OPENSHIFT_APPLICATION_NAME}} -n ${{secrets.OPENSHIFT_PROJECT}}'
+          'wait --for=condition=Ready bc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --timeout=120s'
+          'wait --for=condition=Ready dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --timeout=120s'
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/kafka-endpoint'
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/kafka-topic'
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/kafka-topic'
