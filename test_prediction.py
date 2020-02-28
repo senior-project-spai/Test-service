@@ -2,9 +2,6 @@ import argparse
 import time
 from typing import Dict, List
 
-# image
-import cv2
-from PIL import Image, ImageOps
 import random
 
 
