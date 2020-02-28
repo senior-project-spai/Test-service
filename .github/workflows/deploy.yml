@@ -26,7 +26,6 @@ jobs:
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/s3-endpoint'
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/s3-key'
           'wait --for=condition=available dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --timeout=120s'
-          'expose svc/${{secrets.OPENSHIFT_APPLICATION_NAME}} -n ${{secrets.OPENSHIFT_PROJECT}}'
           continue-on-error: true
     - name: Trigger Build
       uses: redhat-developer/openshift-actions@v1.1
@@ -35,4 +34,5 @@ jobs:
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
         parameters: '{"username": "${{ secrets.OPENSHIFT_USERNAME }}", "password": "${{ secrets.OPENSHIFT_PASSWORD }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
-          'start-build ${{secrets.OPENSHIFT_APPLICATION_NAME}} -n ${{secrets.OPENSHIFT_PROJECT}} '
+          'start-build ${{secrets.OPENSHIFT_APPLICATION_NAME}} -n ${{secrets.OPENSHIFT_PROJECT}} --wait'
+          
