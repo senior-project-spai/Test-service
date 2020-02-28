@@ -15,7 +15,7 @@ jobs:
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
         parameters: '{"username": "${{ secrets.OPENSHIFT_USERNAME }}", "password": "${{ secrets.OPENSHIFT_PASSWORD }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
-          'project ${{secrets.OPENSHIFT_PROJECT}} '
+          'project ${{secrets.OPENSHIFT_PROJECT}}'
           'new-app https://github.com/${{github.REPOSITORY}} --name ${{secrets.OPENSHIFT_APPLICATION_NAME}} -n ${{secrets.OPENSHIFT_PROJECT}}'
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/kafka-endpoint'
           'set env dc/${{secrets.OPENSHIFT_APPLICATION_NAME}} --from configmaps/kafka-topic'
