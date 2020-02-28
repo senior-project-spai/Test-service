@@ -45,7 +45,7 @@ jobs:
           'project ${{secrets.OPENSHIFT_PROJECT}}'
           'run kafka-consumer -ti --image=strimzi/kafka:0.14.0-kafka-2.3.0 --rm=true --restart=Never -- bin/kafka-topics.sh --create --bootstrap-server my-cluster-kafka-bootstrap.spai.svc:9092 --replication-factor 1 --partitions 1 --topic face-result-test'
       continue-on-error: true
-      - name: Change partition count of Kafka topic
+    - name: Change partition count of Kafka topic
       uses: redhat-developer/openshift-actions@v1.1
       with:
         version: '3.11.36'
