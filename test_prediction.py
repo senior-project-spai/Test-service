@@ -13,7 +13,7 @@ def predict(img, ref_position: Dict[str, int] = None):
         'position_right': random.randint(0, 1000),
         'position_bottom': random.randint(0, 1000)+random.randint(0, 1000),
         'position_left': random.randint(0, 1000)+random.randint(0, 1000),
-        'time': int(round(time.time() * 1000)) / 1000
+        'time': int(round(time.time() * 1000)) / 1000 * 1000 / 1000
     }
 
 
